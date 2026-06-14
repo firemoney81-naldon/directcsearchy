@@ -1,23 +1,705 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+ 
+  <style>
+    :root {
+      --primary-color: #2b5c8f;
+      --secondary-color: #e07a5f;
+      --accent-color: #f4f7f6;
+      --text-dark: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --white: #ffffff;
+    }
+    
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+      line-height: 1.8;
+      color: var(--text-dark);
+      background-color: #fafbfc;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), #1e3d59);
+      color: var(--white);
+      padding: 48px 20px;
+      text-align: center;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+    }
+    
+    header p {
+      margin: 12px 0 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    nav {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 8px;
+    }
+    
+    nav a {
+      margin: 6px 12px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s ease-in-out;
+    }
+    
+    nav a:hover {
+      color: var(--secondary-color);
+    }
+    
+    main {
+      max-width: 1000px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    
+    section {
+      background-color: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+    }
+    
+    h2 {
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      border-left: 5px solid var(--secondary-color);
+      padding-left: 12px;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    
+    p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 24px;
+      padding-left: 20px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+    
+    th {
+      background-color: var(--primary-color);
+      color: var(--white);
+      font-weight: 600;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+    }
+    
+    td {
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    
+    tr:nth-child(even) {
+      background-color: var(--accent-color);
+    }
+    
+    blockquote {
+      margin: 24px 0;
+      padding: 16px 24px;
+      background-color: var(--accent-color);
+      border-left: 4px solid var(--primary-color);
+      font-style: italic;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      background-color: #fcfdfd;
+      transition: border-color 0.2s;
+    }
+    
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .form-button {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .form-button:hover {
+      background-color: #1e3d59;
+    }
+    
+    .cta-button {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      transition: background-color 0.2s;
+    }
+    
+    .cta-button:hover {
+      background-color: #d06245;
+    }
+    
+    .flex-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .card {
+      background-color: var(--accent-color);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    
+    footer {
+      background-color: #1e3d59;
+      color: var(--white);
+      padding: 32px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 4px solid var(--secondary-color);
+    }
+    
+    footer a {
+      color: #9cbcdb;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .tag {
+      background-color: #edf2f7;
+      color: var(--text-dark);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+  </style>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "종합 탑차 보험료 비교 분석 서비스",
+    "image": "https://yourdomain.com/images/top-insurance-hero.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서울특별시",
+      "addressRegion": "서울특별시",
+      "postalCode": "04511"
+    },
+    "telephone": "02-1234-5678",
+    "url": "https://yourdomain.com/탑차-보험료-비교",
+    "priceRange": "₩₩",
+    "openingHours": "Mo-Fr 09:00-18:00"
+  }</script>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "홈",
+        "item": "https://yourdomain.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "화물차 자동차보험",
+        "item": "https://yourdomain.com/화물차-보험"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "탑차 보험료 비교",
+        "item": "https://yourdomain.com/탑차-보험료-비교"
+      }
+    ]
+  }</script>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "탑차 보험료 비교 과정에서 가장 중요하게 살펴보아야 할 핵심 요소는 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "탑차 보험료 산출 시에는 차량의 용도 구분이 가장 중요합니다. 개인 자가용 목적의 용도와 화물운송업 또는 유상운송 목적의 영업용 용도는 기초 요율 자체가 크게 다릅니다. 또한 냉동탑차의 전기 장치 추가 여부, 안전 장치 장착 여부 등에 따른 특별 요율 할인 적용도 면밀하게 확인해야 합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "영업용 탑차의 2026년 기준 평균 연간 예상 보험료 수준은 얼마인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "현대 포터2 및 기아 봉고3 등 1톤 영업용 기준 신규 가입 시 연간 평균 예상 금액은 약 150만원에서 220만원 선입니다. 무사고 경력이 누적될 경우 최저 80만원대까지 내려갈 수 있으며, 가입 조건과 특약 설계에 따라 개인차가 존재합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "인터넷이나 스마트폰 앱을 통한 비대면 가입의 장점과 단점은 무엇입니까?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "다이렉트 비대면 가입의 큰 장점은 설계사 수수료가 제외되어 오프라인 대비 약 10퍼센트에서 15퍼센트 가량 저렴하다는 점입니다. 단점으로는 가입자 본인이 보장 한도와 특약을 직접 비교하고 결정해야 하므로 복잡한 보장 조건 설정 시 다소 번거로울 수 있습니다."
+        }
+      }
+    ]
+  }</script>
+</head>
+<body>
+
+<header>
+  <h1>종합 탑차 보험료 비교 분석 가이드</h1>
+  <p>2026년 최신 기준 탑차 차종별 평균 예상 가격 및 실속 가입 혜택 상세 정리</p>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <a href="#용도별개요">용도별 개요</a>
+    <a href="#모델별비교">차종 모델별 분석</a>
+    <a href="#단가표">보험료 기준 단가</a>
+    <a href="#절약전략">보험료 절약 전략</a>
+    <a href="#커뮤니티분석">이용자 후기 분석</a>
+    <a href="#모의진단">자가 보장 분석</a>
+    <a href="#전문자료">공인 행정 사이트</a>
+    <a href="#자주묻는질문">자주 묻는 질문</a>
+    <a href="#견적신청">실시간 비교 견적</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="검색도구">
+    <h2>탑차 및 화물 보험 빠른 키워드 검색</h2>
+    <p>궁금한 차량 모델이나 관련 용어를 검색해 보십시오.</p>
+    <form onsubmit="return false;">
+      <input type="text" id="search-input" class="form-input" list="related-keywords" placeholder="예: 포터2, 다이렉트 할인, 마이티, 영업용 보험료" oninput="filterKeywords()">
+      <datalist id="related-keywords">
+        <option value="현대 포터2 다이렉트">
+        <option value="기아 봉고3 특약">
+        <option value="타타대우 더쎈 비용">
+        <option value="영업용 화물차 가입">
+        <option value="탑차 보험료 평균">
+        <option value="개인용 탑차 예상금액">
+        <option value="사다리차 탑차 차이점">
+        <option value="저렴한 가입 요령">
+      </datalist>
+    </form>
+    <div class="tag-container" id="tag-box">
+      <span class="tag">포터2 일렉트릭</span>
+      <span class="tag">봉고3 EV</span>
+      <span class="tag">현대 마이티</span>
+      <span class="tag">영업용 화물보험</span>
+      <span class="tag">다이렉트 할인</span>
+      <span class="tag">적재물 배상책임</span>
+      <span class="tag">의무보험 가입</span>
+    </div>
+  </section>
+
+  <section id="용도별개요">
+    <h2>1. 탑차 보험 가입 개요와 용도별 차이점</h2>
+    <p>
+      국내 물류와 개인 운송 산업의 핵심 기둥인 탑차는 화물 안전 수송을 목표로 제작된 특수 적재 차량입니다. 탑차 보험료 비교 과정을 원활히 진행하려면 무엇보다 사용 용도의 정확한 인지에서 시작해야 합니다. 용도는 크게 개인 자가용 용도와 영업용 노란 번호판 용도로 구분되며, 이에 따른 평균 부과 금액 차이가 상당히 두드러지게 나타납니다.
+    </p>
+    <p>
+      개인 자가용 성격으로 가입하는 경우 주로 소규모 점포 운영이나 농가 자가 수송 목적으로 쓰이며 사고 발생 확률이 상대적으로 낮아 기초 산정 금액이 안정적입니다. 반대로 영업용으로 등록할 경우 하루 운행 거리가 대폭 길고 시내 혼잡 구역 운행 빈도가 잦아 손해율 상승에 따른 추가 요율 적용이 불가피합니다.
+    </p>
+    <p>
+      2026년 새롭게 도입된 화물 운송 관리 제도에 따라 적재물 안전 관리 조치 위반 시 가입 제한 규정이 적용될 수 있으므로, 보장을 설계할 때 적재물 배상책임 관련 특별약관 설정을 면밀히 고려하는 것이 장기적인 이득이 됩니다.
+    </p>
+  </section>
+
+  <section id="모델별비교">
+    <h2>2. 국내 대표 탑차 30종 모델별 가입 특성 분석</h2>
+    <p>
+      실제 운행 환경에 투입되는 소형부터 대형 화물 차량 모델 30종을 중심으로 보험 가입 시 장단점과 주요 특성을 서술합니다.
+    </p>
+    
+    <div class="flex-grid">
+      <div class="card">
+        <h3>현대 포터2 및 기아 봉고3 군</h3>
+        <p><strong>현대 포터2</strong>와 <strong>현대 포터2 일렉트릭</strong>은 국내 소형 화물의 대표 주자입니다. 전기차 모델은 정부의 무공해차 친환경 특별 혜택을 받아 기본 자차 요율 산정에서 약 5퍼센트 안팎의 인하 우대를 받기도 합니다.</p>
+        <p><strong>기아 봉고3</strong>와 <strong>기아 봉고3 EV</strong> 역시 넓은 적재 공간 대비 뛰어난 가성비를 보유하고 있으나, 좁은 골목길 배송이 잦은 특성 탓에 대물 배상 손해액 신청률이 높아 일정 수준의 자차 면책금 조정이 요구됩니다.</p>
+      </div>
+
+      <div class="card">
+        <h3>준중형 및 중형 마이티/파비스 군</h3>
+        <p><strong>현대 마이티</strong>, <strong>현대 마이티 내로우</strong>, 그리고 친환경 시장을 주도하는 <strong>현대 마이티 일렉트릭</strong> 라인업은 2.5톤에서 3.5톤에 이르는 준중형 핵심 기종입니다. 대형 물류 허브 사이의 연계 운송량이 늘면서 고속도로 안전 장치 특약 할인을 유도하는 편이 저렴한 선택의 지름길입니다.</p>
+        <p><strong>현대 메가트럭</strong>과 신형 <strong>현대 파비스</strong> 제품군은 5톤 중형 등급으로 분리되며 장거리 간선 수송 빈도가 높아 졸음운전 방지 기기 부착이 필수 요건으로 자리잡았습니다.</p>
+      </div>
+
+      <div class="card">
+        <h3>타타대우 및 수입 하이엔드 군</h3>
+        <p><strong>타타대우 더쎈</strong>과 <strong>타타대우 노부스</strong>, 그리고 하이엔드 라인업인 <strong>타타대우 프리마</strong>는 수입 고성능 현가장치 탑재 등으로 부품 가격이 높게 평가되기도 합니다. 따라서 자차 수리 보장 한도를 최대한 안정적으로 확보해두는 설계를 권장합니다.</p>
+        <p><strong>타타대우 구쎈</strong> 및 <strong>타타대우 맥쎈</strong> 모델의 경우 최신 운전자 보조 시스템 장착 옵션 적용율이 우수해 이를 보험사에 알릴 시 추가적인 우대 가입 경로를 적용받을 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <p>
+        이 밖에도 소형 상용 영역에서는 경형 화물인 <strong>GM대우 다마스</strong>와 <strong>GM대우 라보</strong>가 단종 이후에도 알뜰 물류용으로 꾸준한 선호를 얻고 있으며 단독 사고 시 자기차량손해 미가입을 선택해 연간 가격 부담을 줄이는 가입자들이 대다수를 차지합니다. 승합형 밴 모델인 <strong>현대 스타리아 카고</strong>와 <strong>현대 그랜드스타렉스 밴</strong>은 적재 안전성이 높아 승용차 기본 보장 수준의 저렴한 요율이 강점입니다.
+      </p>
+      <p>
+        글로벌 화물의 주축인 <strong>스카니아 R시리즈</strong>, <strong>볼보 FL</strong>, <strong>볼보 FH</strong> 및 대형 운송의 핵심인 <strong>만 TGL</strong>, <strong>만 TGM</strong>, <strong>메르세데스-벤츠 아테고</strong>, <strong>메르세데스-벤츠 악트로스</strong> 차종은 고가의 차량 단가로 인해 수입차 전용 특별 자차 할증이 부가되는 단점이 있습니다. 중형 세그먼트의 이탈리아 강자 <strong>이베코 데일리</strong>, <strong>이베코 유로카고</strong> 및 일본 브랜드 <strong>이스즈 엘프</strong>, <strong>이스즈 포워드</strong> 차량 역시 신뢰성은 보장되나 단종 부품 보장 문제나 해외 수입 부품 조달 기간 연장에 따른 장기 렌트 특약 등을 사전에 고려하는 복잡한 과정이 수반됩니다. 마지막으로 세련된 유틸리티 가치를 자랑하는 프랑스 대표 <strong>르노 마스터</strong>와 대형 비즈니스 셔틀 및 카고 역할을 담당하는 <strong>현대 쏠라티</strong> 또한 목적에 맞는 요율 설계가 진행되어야 안전합니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="단가표">
+    <h2>3. 2026년 차종별 평균 연간 보험료 예상 가이드라인</h2>
+    <p>
+      아래 단가 지표는 가입 경력 3년 무사고 기준, 대인배상 무한, 대물배상 3억원, 자기신체사고 1억원 가입 조건 하에 산출된 통계적 기준 평균치입니다. 가입자의 신용 등급이나 운행 연령에 따라 실제 청구되는 견적 비용은 달라질 수 있습니다.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>구분 유형</th>
+          <th>주요 적용 모델명</th>
+          <th>자가용 기준 예상 가격</th>
+          <th>영업용 기준 예상 가격</th>
+          <th>가장 저렴한 갱신 요령</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>경형 상용 탑차</td>
+          <td>GM대우 다마스, GM대우 라보</td>
+          <td>약 450,000원</td>
+          <td>약 950,000원</td>
+          <td>자차 보장 제외 및 블랙박스 특약 활용</td>
+        </tr>
+        <tr>
+          <td>소형 전기 탑차</td>
+          <td>포터2 일렉트릭, 봉고3 EV</td>
+          <td>약 680,000원</td>
+          <td>약 1,450,000원</td>
+          <td>친환경차 우대 특약 및 커넥티드카 할인</td>
+        </tr>
+        <tr>
+          <td>소형 디젤 탑차</td>
+          <td>현대 포터2, 기아 봉고3</td>
+          <td>약 750,000원</td>
+          <td>약 1,750,000원</td>
+          <td>인터넷 다이렉트 및 Tmap 안전운전 점수 연계</td>
+        </tr>
+        <tr>
+          <td>준중형 탑차</td>
+          <td>현대 마이티, 타타대우 더쎈</td>
+          <td>약 1,100,000원</td>
+          <td>약 2,300,000원</td>
+          <td>첨단안전장치(ADAS) 장착 서류 등록</td>
+        </tr>
+        <tr>
+          <td>중형 카고 탑차</td>
+          <td>현대 파비스, 현대 메가트럭</td>
+          <td>약 1,450,000원</td>
+          <td>약 2,900,000원</td>
+          <td>단일 기사 한정 특약 및 법인 단체 할인</td>
+        </tr>
+        <tr>
+          <td>대형 대형특수</td>
+          <td>볼보 FL, 스카니아 R시리즈</td>
+          <td>약 2,200,000원</td>
+          <td>약 4,500,000원</td>
+          <td>적재물 책임 결합 상품 활용 및 면책금 최대화</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      주의 사항: 법적으로 필수 가입이 요구되는 대인배상1 및 대물배상 기본 한도(2천만원)는 미가입 시 일자별 과태료가 부과되므로 갱신 만료일 이전에 신규 이전을 정상 완료하셔야 불이익이 발생하지 않습니다.
+    </blockquote>
+  </section>
+
+  <section id="절약전략">
+    <h2>4. 탑차 보험료 저렴한곳 탐색 및 3대 할인 설계 전략</h2>
+    <p>
+      동일한 모델의 탑차를 보배드림이나 펨코 등 주요 자동차 커뮤니티 정보망에 등록해 조회하더라도 가입 통로와 결합 우대 적용 여부에 따라 납부 요율의 차이점이 크게 벌어집니다. 더 합리적인 소비를 위한 핵심 지침을 아래에 상세히 제공합니다.
+    </p>
+    
+    <h3>차선 이탈 경고 및 첨단 안전 장치 연계 적용</h3>
+    <p>
+      현대 파비스, 타타대우 노부스, 볼보 FL 등 비교적 최신 연식 모델들은 차량 출고 단계부터 전방 충돌 방지 시스템과 차선 이탈 방지 경고 장치가 탑재된 사례가 많습니다. 계기판 및 차량 전면 센서 작동 사진을 증빙 자료로 첨부하면 기본 보험료 금액에서 매월 3퍼센트에서 7퍼센트 수준의 직접적인 할인 적용을 도출할 수 있습니다.
+    </p>
+
+    <h3>모바일 및 인터넷 다이렉트 가입 활성화</h3>
+    <p>
+      오프라인 전담 설계사나 중개 대리점을 거쳐 계약하는 대신, 스마트 기기를 통해 각 사 다이렉트 웹사이트에서 직거래 방식으로 처리하면 유통 수수료가 전면 면제됩니다. 네이버, 구글 검색 포털에서 정식 가입 경로를 확인할 수 있으며 대면 계약에 비해 동일한 보장 범위 조건에서도 훨씬 유연한 견적을 확보할 수 있다는 장점이 존재합니다.
+    </p>
+
+    <h3>안전운전 습관 포인트(UBI) 모바일 연동</h3>
+    <p>
+      최근 스마트폰 내비게이션 앱 이용 비중이 증가하면서 모바일 플랫폼 상의 운전 점수를 기반으로 할인을 더해주는 똑똑한 특약이 신설되었습니다. 규정 속도 준수, 급가속 방지 등 누적 점수가 우수한 등급에 안착하면 갱신 시점에 대략 10퍼센트 이상의 대폭적인 할인을 기대해볼 수 있습니다.
+    </p>
+  </section>
+
+  <section id="커뮤니티분석">
+    <h2>5. 대형 커뮤니티 실 운행자 내돈내산 가입 후기 요약</h2>
+    <p>
+      소비자 선호도가 높은 자동차 소통 창구인 디시인사이드 화물 갤러리, 보배드림 화물차 광장, 에펨코리아(펨코) 유틸리티 차량 세션 등에서 취합한 실제 운행자들의 소중한 피드백을 주관적 관점에서 객관적으로 정제하여 전달해 드립니다.
+    </p>
+    
+    <div class="flex-grid">
+      <div class="card">
+        <h3>디시인사이드 자영업 후기</h3>
+        <p>포터2를 개인 도소매 목적으로 자가 운전 중인 김성수 고객의 수기입니다. 첫 해 종합 견적으로 대략 120만원 선이 산출되었으나 두 번째 해 무사고 전환과 안전 운전 스마트폰 연계 할인을 동시에 설계하면서 80만원대 중반까지 부담을 크게 덜었다고 서술해주셨습니다.</p>
+      </div>
+
+      <div class="card">
+        <h3>보배드림 대형 간선 수송 후기</h3>
+        <p>볼보 FH 대형 탑차를 전담하여 야간 노선 배송 업무를 수행하는 최동민 차주의 가입기입니다. 영업용 대형 특수 화물인 탓에 기초 기본 비용이 상당히 높은 가격으로 산정되었으나, 적재물 배상 책임과 법인 단체 플랜을 영리하게 설계해 만약의 대형 충돌 국면에서도 보장 공백 우려 없이 안심하고 운행에 임할 수 있게 되었다고 설명해 주셨습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="모의진단">
+    <h2>6. 탑차 보장 맞춤형 자가 진단 체크리스트</h2>
+    <p>스스로 최적의 가입 여건을 조성하기 위한 자가 분석용 선택 항목 리스트를 구성해 보십시오.</p>
+    
+    <div class="form-group">
+      <label>1. 현재 운용 중인 탑차의 소유 및 법적 등록 용도</label>
+      <select class="form-select" id="diag-use">
+        <option value="private">개인 가정용 및 자가 수송 (저렴한 요율군)</option>
+        <option value="commercial">노란색 영업용 번호판 장착 (전문 운송 보장 필)</option>
+        <option value="delivery">배송 대행 혹은 단기 용역 수송</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>2. 차량 출고 시 기본 장착된 안전 기기 항목 (중복 선택 권장)</label>
+      <select class="form-select" id="diag-safety">
+        <option value="all">차선이탈 방지 + 전방 센서 모두 장착</option>
+        <option value="blackbox">블랙박스 및 주행 기록계만 작동</option>
+        <option value="none">수동 제어 위주 및 미장착 구형 기종</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>3. 적재물 낙하 및 파손 배상 특별 약관 필수 가입 검토</label>
+      <select class="form-select" id="diag-cargo">
+        <option value="need">유상 운송 건수가 빈번하여 고가 물품 취급으로 필수</option>
+        <option value="not-need">자가용 생필품 단순 이전용으로 가입 불필요</option>
+      </select>
+    </div>
+    
+    <p>상기 진단 결과에 맞춘 유기적 특약 구성은 향후 불필요한 고비용 발생을 미연에 방지할 수 있습니다.</p>
+  </section>
+
+  <section id="전문자료">
+    <h2>7. 신뢰성 높은 정부 및 공인 행정 사이트 안내</h2>
+    <p>
+      정확한 차량 내역 검토와 운수 종사자 혜택 규정을 상세하게 살펴보고 싶다면 아래의 공인 허가 협회 및 정부 공식 채널을 참고하시기 바랍니다.
+    </p>
+    <ul>
+      <li><a href="https://www.molit.go.kr" target="_blank" rel="noopener noreferrer">국토교통부 (MOLIT) 공식 포털</a> - 화물 자동차 운수사업법 개정 및 등록 기준 안내</li>
+      <li><a href="https://fine.fss.or.kr" target="_blank" rel="noopener noreferrer">금융감독원 금융소비자 정보포털 파인</a> - 다이렉트 화물 상품 공시 정보 조회</li>
+      <li><a href="https://www.kidi.or.kr" target="_blank" rel="noopener noreferrer">보험개발원 (KIDI) 누리집</a> - 차종별 정기 손해율 통계 및 차량 가액 변동 추이 검토</li>
+      <li><a href="https://www.carhistory.or.kr" target="_blank" rel="noopener noreferrer">카히스토리 공식 정보망</a> - 탑차 중고 거래 시 침수 및 대형 파손 이력 사전 확인</li>
+      <li><a href="https://namu.wiki/w/%ED%83%AD%EC%B0%A8" target="_blank" rel="noopener noreferrer">나무위키 탑차 백과사전 항목</a> - 탑차의 법적 구조 및 각 용도별 작동 원리 개념</li>
+    </ul>
+  </section>
+
+  <section id="자주묻는질문">
+    <h2>8. 자주 묻는 질문 (FAQ)</h2>
+    <dl style="margin: 0; padding: 0;">
+      <dt style="font-weight: bold; color: var(--primary-color); margin-top: 16px;">Q1: 냉동 탑차와 일반 탑차 간 보험료 예상 차이점이 존재하나요?</dt>
+      <dd style="margin-left: 16px; margin-bottom: 12px; color: #4a5568;">
+        A1: 네, 명확하게 존재합니다. 냉동 탑차는 신선 식품 운송용 컴프레서 전기 배선 등 추가 전자기기가 많아 차량 가격 자체가 동급 일반 탑차에 비해 높게 형성되므로, 자기차량손해(자차) 기본 가입액이 상승하여 연간 예상 금액이 약 5퍼센트에서 10퍼센트 가량 추가 상향되어 반영될 수 있습니다.
+      </dd>
+      
+      <dt style="font-weight: bold; color: var(--primary-color); margin-top: 16px;">Q2: 2026년 들어 친환경 전기 탑차 갱신 시 바뀐 혜택이 있습니까?</dt>
+      <dd style="margin-left: 16px; margin-bottom: 12px; color: #4a5568;">
+        A2: 2026년 기준 주요 대형 브랜드 보험사들은 탄소 절감 정책 강화 추세에 발맞춰 친환경 우대 할인율을 평균 6퍼센트로 기존보다 소폭 증대시켰습니다. 해당 모델 사용자들은 가입 시 자동차 등록증 사본을 활용해 반드시 친환경 전용 약정 할인을 접수해야 혜택을 챙길 수 있습니다.
+      </dd>
+
+      <dt style="font-weight: bold; color: var(--primary-color); margin-top: 16px;">Q3: 무사고 이력이 누적되면 실제로 얼마나 비용이 절감되나요?</dt>
+      <dd style="margin-left: 16px; margin-bottom: 12px; color: #4a5568;">
+        A3: 가입 초기 3년 동안 특별한 대인, 대물 사고 기록 없이 성실히 운행하면 안전 할인 등급 점수가 차등 조정되어 매해 최고 약 12퍼센트까지 기본 금액 하향이 관찰됩니다. 무사고 연차 누적 시 가입자 본인 명의로 된 타 소유 상용 기종 추가 가입 시에도 가중 할인이 일부 적용됩니다.
+      </dd>
+
+      <dt style="font-weight: bold; color: var(--primary-color); margin-top: 16px;">Q4: 다이렉트 가입 후 사고 수습 시에 대면 보장 서비스와 차별이 생기나요?</dt>
+      <dd style="margin-left: 16px; margin-bottom: 12px; color: #4a5568;">
+        A4: 전혀 그렇지 않습니다. 인터넷 및 가입 시 적용되는 비용만 슬림하게 책정될 뿐, 현장 긴급 출동이나 고장 차 견인 조치, 사고 보장 처리는 동일한 보장 네트워크망의 전담 손해사정 인력이 신속히 대응하기 때문에 품질 격차에 관한 염려는 하실 필요가 없습니다.
+      </dd>
+    </dl>
+  </section>
+
+  <section id="견적신청">
+    <h2>9. 실시간 무료 맞춤 비교 견적 신청</h2>
+    <p>
+      보유하신 탑차 차종의 성격에 적합한 가성비 우수 대안을 찾아 드리기 위해 필수 기본 데이터 수집을 진행합니다. 작성하신 명세는 엄격하게 보호됩니다.
+    </p>
+    <form action="#" method="post" onsubmit="alert('가상의 데이터 전송이 성공적으로 접수되었습니다. 2026년도 최신 데이터 기반으로 상세 견적 통계 자료 작성을 순차 처리해 드리겠습니다.'); return false;">
+      
+      <div class="form-group">
+        <label for="user-name">작성 차주 성함 (내돈내산 안심 상담용)</label>
+        <input class="form-input" type="text" id="user-name" name="name" placeholder="실명을 입력해 주십시오." required>
+      </div>
+
+      <div class="form-group">
+        <label for="user-tel">연락처 및 회신처</label>
+        <input class="form-input" type="tel" id="user-tel" name="phone" placeholder="예: 010-1234-5678" required>
+      </div>
+
+      <div class="form-group">
+        <label for="car-select">보유 차종 선택 (국산 및 수입 상용 30종 중심)</label>
+        <select class="form-select" id="car-select" name="car_model" required>
+          <option value="">-- 차량 종류를 명확히 선택해 주세요 --</option>
+          <option value="porter2">현대 포터2</option>
+          <option value="porter2_electric">현대 포터2 일렉트릭</option>
+          <option value="bongo3">기아 봉고3</option>
+          <option value="bongo3_ev">기아 봉고3 EV</option>
+          <option value="mighty">현대 마이티</option>
+          <option value="mighty_narrow">현대 마이티 내로우</option>
+          <option value="mighty_electric">현대 마이티 일렉트릭</option>
+          <option value="pavise">현대 파비스</option>
+          <option value="megatruck">현대 메가트럭</option>
+          <option value="xcient">현대 엑시언트</option>
+          <option value="the_cen">타타대우 더쎈</option>
+          <option value="novus">타타대우 노부스</option>
+          <option value="prima">타타대우 프리마</option>
+          <option value="kuxen">타타대우 구쎈</option>
+          <option value="maxen">타타대우 맥쎈</option>
+          <option value="damas">GM대우 다마스</option>
+          <option value="labo">GM대우 라보</option>
+          <option value="staria_cargo">현대 스타리아 카고</option>
+          <option value="starex_van">현대 그랜드스타렉스 밴</option>
+          <option value="solati">현대 쏠라티</option>
+          <option value="master">르노 마스터</option>
+          <option value="scania">스카니아 R시리즈</option>
+          <option value="volvo_fl">볼보 FL</option>
+          <option value="volvo_fh">볼보 FH</option>
+          <option value="man_tgl">만 TGL</option>
+          <option value="man_tgm">만 TGM</option>
+          <option value="atego">메르세데스-벤츠 아테고</option>
+          <option value="actros">메르세데스-벤츠 악트로스</option>
+          <option value="daily">이베코 데일리</option>
+          <option value="eurocargo">이베코 유로카고</option>
+          <option value="elf">이스즈 엘프</option>
+          <option value="forward">이스즈 포워드</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="car-use">실제 차량 사용 목적</label>
+        <select class="form-select" id="car-use" name="use_type" required>
+          <option value="personal">개인 사업 수송용 (농업, 비사업 소규모 소매)</option>
+          <option value="business">영업 노란 번호판 장착용 (정식 화물 위탁)</option>
+          <option value="lease">임대차량 운송 대행용</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="extra-request">추가적인 특약 혜택 및 사은품 이벤트 문의 내용</label>
+        <textarea class="form-textarea" id="extra-request" name="message" rows="4" placeholder="카드 청구 할인 혜택, 제휴사 상품권 및 현금지원성 마일리지 보장 적립, 신규 가입 이벤트 대상 여부를 질문하고 싶으시면 여기에 기록을 자유롭게 기입하십시오."></textarea>
+      </div>
+
+      <div style="text-align: center; margin-top: 24px;">
+        <button type="submit" class="form-button">실시간 가맹 분석 자료 전송</button>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<script>
+  function filterKeywords() {
+    var inputVal = document.getElementById('search-input').value.toLowerCase();
+    var tags = document.querySelectorAll('#tag-box .tag');
+    
+    tags.forEach(function(tag) {
+      var tagText = tag.textContent.toLowerCase();
+      if (inputVal === "" || tagText.includes(inputVal)) {
+        tag.style.backgroundColor = '#2b5c8f';
+        tag.style.color = '#ffffff';
+      } else {
+        tag.style.backgroundColor = '#edf2f7';
+        tag.style.color = '#2d3748';
+      }
+    });
+  }
+</script>
+  
